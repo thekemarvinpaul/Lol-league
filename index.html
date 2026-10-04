@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>League of Legends | eFootball</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Chakra+Petch:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3ecff;--panel:#fff;--ink:#1a0f3a;--mute:#6b5f8f;--pink:#ff2e88;--cyan:#0aa9c9;--sun:#ffb800;--line:#d9ccf5;--win:#12a86b;--loss:#e03a4e;--dots:rgba(26,15,58,.09);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12082a;--panel:#1d1042;--ink:#f6f0ff;--mute:#a597d1;--cyan:#22e5ff;--sun:#ffd83a;--line:#3a2678;--win:#3df0a2;--loss:#ff6b7d;--dots:rgba(255,255,255,.06)}}
+:root[data-theme="dark"]{--bg:#12082a;--panel:#1d1042;--ink:#f6f0ff;--mute:#a597d1;--cyan:#22e5ff;--sun:#ffd83a;--line:#3a2678;--win:#3df0a2;--loss:#ff6b7d;--dots:rgba(255,255,255,.06)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Chakra Petch",system-ui,sans-serif;font-weight:500;background-image:radial-gradient(var(--dots) 1.5px,transparent 1.6px);background-size:14px 14px;min-height:100%}
+.wrap{max-width:860px;margin:0 auto;padding:16px 14px 60px}
+.hero{position:relative;overflow:hidden;border:3px solid var(--ink);border-radius:6px;padding:26px 18px 22px;background:repeating-conic-gradient(from 0deg at 82% 50%,var(--pink) 0 4deg,#7a1cff 4deg 8deg);box-shadow:7px 7px 0 var(--ink);color:#fff}
+.hero:after{content:"リーグ";position:absolute;right:10px;bottom:-14px;font-family:Bangers,Impact,sans-serif;font-size:84px;opacity:.28;letter-spacing:4px;pointer-events:none}
+.hero small{display:inline-block;background:var(--sun);color:#1a0f3a;font-weight:700;padding:2px 10px;transform:skew(-10deg);border:2px solid #1a0f3a}
+h1{font-family:Bangers,Impact,sans-serif;font-weight:400;font-size:clamp(46px,13vw,92px);line-height:.92;margin:10px 0 0;letter-spacing:2px;text-shadow:4px 4px 0 #1a0f3a,-1px -1px 0 #1a0f3a;transform:rotate(-2deg);transform-origin:left}
+.hero p{margin:12px 0 0;max-width:30ch;font-weight:700;text-shadow:1px 1px 0 #1a0f3a}
+h2{font-family:Bangers,Impact,sans-serif;font-weight:400;font-size:32px;letter-spacing:1.5px;margin:34px 0 12px;display:inline-block;background:var(--ink);color:var(--bg);padding:2px 16px 0 12px;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%)}
+.card{background:var(--panel);border:3px solid var(--ink);border-radius:6px;box-shadow:5px 5px 0 var(--ink)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th{font-size:13px;color:var(--mute);padding:10px 6px;text-align:center;border-bottom:3px solid var(--ink);font-weight:700}
+th.gd,td.gd{background:color-mix(in srgb,var(--cyan) 14%,transparent)}
+th:nth-child(2),td:nth-child(2){text-align:left}
+td{padding:9px 6px;text-align:center;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.pos{font-family:Bangers,Impact,sans-serif;font-size:24px;width:44px;color:var(--mute)}
+.pl{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:11px;color:#fff;border:2px solid var(--ink);flex:none;text-shadow:0 1px 0 rgba(0,0,0,.5)}
+.pts{font-family:Bangers,Impact,sans-serif;font-size:26px;color:var(--pink)}
+tr.r1 .pos{color:var(--sun);-webkit-text-stroke:1.5px var(--ink)}
+tr.r1{background:linear-gradient(90deg,color-mix(in srgb,var(--sun) 28%,transparent),transparent)}
+tr.r2 .pos,tr.r3 .pos{color:var(--cyan)}
+.crown{font-size:15px}
+.pos-n{color:var(--win)}.neg{color:var(--loss)}
+tr.flash{animation:fl 1.3s ease-out}
+@keyframes fl{0%{background:var(--pink);color:#fff}100%{background:transparent}}
+.form{padding:16px;display:grid;gap:12px}
+.row{display:grid;grid-template-columns:1fr 64px 20px 64px 1fr;gap:6px;align-items:center}
+.row.x{text-align:center;font-family:Bangers,Impact,sans-serif;font-size:24px}
+select,input{width:100%;font:inherit;font-weight:700;color:var(--ink);background:var(--bg);border:2px solid var(--ink);border-radius:4px;padding:10px 6px;min-width:0}
+input[type=number]{text-align:center;font-size:20px}
+select{font-size:14px}
+button{font-family:Bangers,Impact,sans-serif;font-size:24px;letter-spacing:1.5px;border:3px solid var(--ink);background:var(--pink);color:#fff;padding:10px 16px;border-radius:4px;box-shadow:4px 4px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s}
+button:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+button.ghost{background:var(--panel);color:var(--ink);font-size:16px;padding:6px 12px;box-shadow:3px 3px 0 var(--ink)}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.err{color:var(--loss);font-weight:700;min-height:1.2em;margin:0}
+.gdl{padding:14px 14px 8px}
+.gb{display:grid;grid-template-columns:96px 1fr 38px;gap:8px;align-items:center;margin-bottom:9px;font-weight:700}
+.gb .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{position:relative;height:20px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 20%)}
+.bar:before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.bar i{position:absolute;top:2px;bottom:2px;border:2px solid var(--ink);transition:width .5s,left .5s;min-width:0}
+.bar i.p{background:var(--cyan);left:50%;transform:skewX(-14deg)}
+.bar i.n{background:var(--pink);transform:skewX(-14deg)}
+.gb b{text-align:right;font-family:Bangers,Impact,sans-serif;font-size:20px;font-weight:400}
+.log{list-style:none;margin:0;padding:0}
+.log li{display:grid;grid-template-columns:1fr auto 1fr auto;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);font-weight:700}
+.log li:last-child{border-bottom:0}
+.log .h{text-align:right}
+.sc{font-family:Bangers,Impact,sans-serif;font-size:24px;background:var(--ink);color:var(--bg);padding:0 12px;transform:skew(-10deg)}
+.empty{padding:18px;color:var(--mute);margin:0}
+.foot{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.foot span{color:var(--mute);font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:var(--sun);color:#1a0f3a;border:3px solid #1a0f3a;padding:10px 18px;font-family:Bangers,Impact,sans-serif;font-size:22px;letter-spacing:1px;transition:transform .25s;z-index:9;box-shadow:4px 4px 0 #1a0f3a;max-width:92vw;text-align:center}
+.toast.on{transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root{--bg:#fff3d6;--panel:#fffdf6;--pink:#ff3d8f;--cyan:#00b8e6;--sun:#ffc400;--line:#f0dcae;--mute:#7a5a9a;--dots:rgba(255,61,143,.16)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c0a4d;--panel:#2b1570;--pink:#ff4fa3;--cyan:#2ff0ff;--sun:#ffe14d;--line:#4a2ba0;--mute:#c3b2f5;--dots:rgba(47,240,255,.12)}}
+:root[data-theme="dark"]{--bg:#1c0a4d;--panel:#2b1570;--pink:#ff4fa3;--cyan:#2ff0ff;--sun:#ffe14d;--line:#4a2ba0;--mute:#c3b2f5;--dots:rgba(47,240,255,.12)}
+.hero{background:radial-gradient(circle at 80% 40%,#ffe14d 0 12%,transparent 13%),repeating-conic-gradient(from 0deg at 80% 40%,#ff3d8f 0 5deg,#ff8a3d 5deg 10deg,#7b2cff 10deg 15deg);padding-right:130px;min-height:200px}
+.hero:after{display:none}
+.mascot{position:absolute;right:6px;bottom:0;width:128px;filter:drop-shadow(3px 3px 0 #1a0f3a);animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(3deg)}}
+.buddy{width:52px;vertical-align:bottom;margin-left:10px;animation:bob 2s ease-in-out infinite}
+h2{background:linear-gradient(90deg,#ff3d8f,#7b2cff);color:#fff}
+thead tr{background:linear-gradient(90deg,#7b2cff,#ff3d8f)}
+th{color:#fff;border-bottom:3px solid var(--ink)}
+th.gd{background:rgba(255,225,77,.35)}
+td.gd{background:color-mix(in srgb,var(--sun) 22%,transparent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--cyan) 8%,transparent)}
+tr.r1{background:linear-gradient(90deg,color-mix(in srgb,var(--sun) 55%,transparent),transparent)}
+.av{width:38px;height:38px;border:0;background:none}
+.card{box-shadow:5px 5px 0 var(--pink)}
+button{background:linear-gradient(180deg,#ff6bb0,#ff2e88)}
+@media(max-width:480px){.hero{padding-right:100px}.mascot{width:96px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <small>eFootball season</small>
+    <h1>League of<br>Legends</h1>
+    <p>Post a result. The table moves. Rivals sweat.</p><svg class="mascot" viewBox="0 0 130 140" aria-hidden="true"><path d="M26 138Q60 100 94 138Z" fill="#ff4fa3" stroke="#1a0f3a" stroke-width="3"/><ellipse cx="60" cy="64" rx="34" ry="32" fill="#ffd9bf" stroke="#1a0f3a" stroke-width="3"/><path d="M24 60L18 30L38 42L44 12L58 36L72 8L80 38L100 26L96 60Q80 42 60 44Q40 42 24 60Z" fill="#2ff0ff" stroke="#1a0f3a" stroke-width="3" stroke-linejoin="round"/><ellipse cx="46" cy="68" rx="7" ry="9" fill="#1a0f3a"/><ellipse cx="74" cy="68" rx="7" ry="9" fill="#1a0f3a"/><circle cx="44" cy="64" r="3" fill="#fff"/><circle cx="72" cy="64" r="3" fill="#fff"/><circle cx="48" cy="72" r="1.6" fill="#fff"/><circle cx="76" cy="72" r="1.6" fill="#fff"/><ellipse cx="34" cy="80" rx="6" ry="3.5" fill="#ff7aa8"/><ellipse cx="86" cy="80" rx="6" ry="3.5" fill="#ff7aa8"/><path d="M50 83Q60 98 70 83Z" fill="#7a1c3a" stroke="#1a0f3a" stroke-width="2"/><g transform="translate(108 112)"><circle r="17" fill="#fff" stroke="#1a0f3a" stroke-width="3"/><path d="M0-7L7-2L4 6H-4L-7-2Z" fill="#1a0f3a"/></g></svg>
+  </header>
+
+  <h2>Standings</h2>
+  <div class="card scroll"><table>
+    <thead><tr><th></th><th>Player</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th class="gd">GD</th><th>PTS</th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table></div>
+
+  <h2>Post a result</h2><svg class="buddy" viewBox="0 0 80 84" aria-hidden="true"><path d="M22 70L14 82M58 70L66 82" stroke="#1a0f3a" stroke-width="5" stroke-linecap="round"/><circle cx="40" cy="38" r="32" fill="#fff" stroke="#1a0f3a" stroke-width="3"/><path d="M40 12L56 24L50 44H30L24 24Z" fill="#7b2cff" stroke="#1a0f3a" stroke-width="2.5" stroke-linejoin="round"/><circle cx="31" cy="34" r="3.5" fill="#fff"/><circle cx="49" cy="34" r="3.5" fill="#fff"/><circle cx="31" cy="35" r="1.8" fill="#1a0f3a"/><circle cx="49" cy="35" r="1.8" fill="#1a0f3a"/><path d="M33 47Q40 56 47 47Z" fill="#ff4fa3" stroke="#1a0f3a" stroke-width="2"/></svg>
+  <div class="card form">
+    <div class="row">
+      <select id="h" aria-label="Home player"></select>
+      <input id="hs" type="number" min="0" max="99" inputmode="numeric" placeholder="0" aria-label="Home goals">
+      <span class="x">-</span>
+      <input id="as" type="number" min="0" max="99" inputmode="numeric" placeholder="0" aria-label="Away goals">
+      <select id="a" aria-label="Away player"></select>
+    </div>
+    <p class="err" id="err" role="alert"></p>
+    <button id="go" type="button">Post result</button>
+  </div>
+
+  <h2>Results</h2>
+  <div class="card"><ul class="log" id="log"></ul></div>
+
+  <div class="foot">
+    <button class="ghost" id="theme" type="button">Switch theme</button>
+    <button class="ghost" id="copy" type="button">Copy table</button>
+    <button class="ghost" id="csv" type="button" hidden>Download CSV</button>
+    <button class="ghost" id="bak" type="button" hidden>Download backup</button>
+    <button class="ghost" id="rst" type="button">Restore backup</button>
+    <input id="file" type="file" accept=".json,application/json" hidden>
+    <button class="ghost" id="reset" type="button">Clear all results</button>
+    <span id="saved">Auto-saves every change until this tab is closed.</span>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+var PLAYERS=[["Lawerence","LAW","#8e2a6b"],["Alvin$$","ALV","#5f93c8"],["Diofu","DIO","#12b85f"],["Jordan","JOR","#4f7f22"],["Opio","OPIO","#a55ccb"],["Hillary","HIL","#e0197d"],["Factor","FAC","#b81bd6"],["Theke","THE","#4a2ab0"],["Dezire","DEZ","#e03a1a"],["Elton","ELT","#8aa81c"],["Anthony","ANT","#c83ae0"]];
+var KEY="lol-efootball-results-v1";
+var results=[];
+try{var s=sessionStorage.getItem(KEY);results=s?JSON.parse(s):[{h:"Lawerence",a:"Anthony",hs:1,as:0,t:1}];}catch(e){results=[{h:"Lawerence",a:"Anthony",hs:1,as:0,t:1}];}
+function save(){var ok=true;try{sessionStorage.setItem(KEY,JSON.stringify(results));}catch(e){ok=false}
+  var d=new Date(),t=("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2);
+  $("saved").textContent=ok?"Auto-saved at "+t:"Could not auto-save here. Download a backup.";}
+var $=function(i){return document.getElementById(i)};
+var info={};PLAYERS.forEach(function(p,i){info[p[0]]=p.concat([i])});
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function av(n){var p=info[n],i=p[3],hc=["#1a0f3a","#ffe14d","#ff4fa3","#2ff0ff","#ffffff","#7dff6b"][i%6],H=["M8 22Q8 6 20 6Q32 6 32 22Q26 14 20 15Q14 14 8 22Z","M8 24L9 8L15 15L20 4L25 15L31 8L32 24Q26 15 20 16Q14 15 8 24Z","M8 24Q6 6 22 6Q34 8 32 24Q30 16 22 14Q14 18 8 24Z"][i%3];
+return '<svg class="av" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="'+p[2]+'" stroke="#1a0f3a" stroke-width="2"/><ellipse cx="20" cy="24" rx="12" ry="12" fill="#ffd9bf" stroke="#1a0f3a" stroke-width="1.5"/><path d="'+H+'" fill="'+hc+'" stroke="#1a0f3a" stroke-width="1.5"/><circle cx="15" cy="25" r="2.4" fill="#1a0f3a"/><circle cx="25" cy="25" r="2.4" fill="#1a0f3a"/><circle cx="14.3" cy="24.2" r=".9" fill="#fff"/><circle cx="24.3" cy="24.2" r=".9" fill="#fff"/><ellipse cx="11" cy="29" rx="2.2" ry="1.3" fill="#ff7aa8"/><ellipse cx="29" cy="29" rx="2.2" ry="1.3" fill="#ff7aa8"/><path d="M17 30Q20 34 23 30Z" fill="#7a1c3a"/></svg>'}
+function compute(){
+  var t={};PLAYERS.forEach(function(p){t[p[0]]={n:p[0],mp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0}});
+  results.forEach(function(r){
+    var H=t[r.h],A=t[r.a];if(!H||!A)return;
+    H.mp++;A.mp++;H.gf+=r.hs;H.ga+=r.as;A.gf+=r.as;A.ga+=r.hs;
+    if(r.hs>r.as){H.w++;H.pts+=3;A.l++}else if(r.hs<r.as){A.w++;A.pts+=3;H.l++}else{H.d++;A.d++;H.pts++;A.pts++}
+  });
+  var arr=Object.keys(t).map(function(k){var x=t[k];x.gd=x.gf-x.ga;return x});
+  arr.sort(function(a,b){return b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.n.localeCompare(b.n)});
+  return arr;
+}
+function sg(n){return n>0?"+"+n:""+n}
+var prev={};
+function render(){
+  var rows=compute();
+  $("tb").innerHTML=rows.map(function(x,i){
+    var key=[x.pts,x.mp,x.gd].join();var fl=prev[x.n]&&prev[x.n]!==key?" flash":"";
+    return '<tr class="r'+(i+1)+fl+'"><td class="pos">'+(i+1)+'</td><td><div class="pl">'+av(x.n)+esc(x.n)+(i===0&&x.mp?' <span class="crown">&#128081;</span>':'')+'</div></td><td>'+x.mp+'</td><td>'+x.w+'</td><td>'+x.d+'</td><td>'+x.l+'</td><td>'+x.gf+'</td><td>'+x.ga+'</td><td class="gd '+(x.gd>0?'pos-n':x.gd<0?'neg':'')+'"><b>'+sg(x.gd)+'</b></td><td class="pts">'+x.pts+'</td></tr>';
+  }).join("");
+  rows.forEach(function(x){prev[x.n]=[x.pts,x.mp,x.gd].join()});
+  var L=$("log");
+  if(!results.length){L.innerHTML='<li><p class="empty">No results yet. Post the first match above.</p></li>';return}
+  L.innerHTML=results.map(function(r,i){return {r:r,i:i}}).reverse().map(function(o){
+    var r=o.r;return '<li><span class="h">'+esc(r.h)+'</span><span class="sc">'+r.hs+' - '+r.as+'</span><span>'+esc(r.a)+'</span><button class="ghost" data-i="'+o.i+'" type="button" aria-label="Delete result">Delete</button></li>';
+  }).join("");
+}
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.k);toast.k=setTimeout(function(){t.classList.remove("on")},2400)}
+var opts=PLAYERS.map(function(p){return '<option>'+esc(p[0])+'</option>'}).join("");
+$("h").innerHTML=opts;$("a").innerHTML=opts;$("a").selectedIndex=1;
+$("go").onclick=function(){
+  var h=$("h").value,a=$("a").value,hs=$("hs").value,as=$("as").value;
+  if(h===a){$("err").textContent="Pick two different players.";return}
+  if(hs===""||as===""){$("err").textContent="Enter both scores.";return}
+  hs=Math.max(0,parseInt(hs,10));as=Math.max(0,parseInt(as,10));
+  if(isNaN(hs)||isNaN(as)){$("err").textContent="Scores must be whole numbers.";return}
+  $("err").textContent="";
+  results.push({h:h,a:a,hs:hs,as:as,t:Date.now()});save();render();
+  $("hs").value="";$("as").value="";
+  toast("Posted: "+h+" "+hs+" - "+as+" "+a);
+};
+$("log").onclick=function(e){
+  var b=e.target.closest("button[data-i]");if(!b)return;
+  results.splice(parseInt(b.getAttribute("data-i"),10),1);save();render();toast("Result deleted");
+};
+$("reset").onclick=function(){
+  if(confirm("Delete every result and reset the table to zero?")){results=[];save();render();toast("Table reset")}
+};
+$("theme").onclick=function(){
+  var r=document.documentElement,dark=r.getAttribute("data-theme")?r.getAttribute("data-theme")==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+  r.setAttribute("data-theme",dark?"light":"dark");
+};
+render();
+function table(){return compute()}
+function textTable(){
+  var r=table(),pad=function(x,n){x=String(x);while(x.length<n)x+=" ";return x};
+  return "LEAGUE OF LEGENDS\n"+r.map(function(x,i){return pad(i+1,3)+pad(x.n,10)+pad(x.mp,3)+pad(x.w,3)+pad(x.d,3)+pad(x.l,3)+pad(sg(x.gd),4)+x.pts+" pts"}).join("\n")+"\n(# Player MP W D L GD Pts)";
+}
+$("copy").onclick=function(){
+  var t=textTable();
+  function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();var ok=false;try{ok=document.execCommand("copy")}catch(e){}a.remove();toast(ok?"Table copied. Paste it in your group chat":"Copy failed. Use Download CSV")}
+  try{navigator.clipboard.writeText(t).then(function(){toast("Table copied. Paste it in your group chat")},fb)}catch(e){fb()}
+};
+function csvText(){
+  var out=["Pos,Player,MP,W,D,L,GF,GA,GD,PTS"];
+  table().forEach(function(x,i){out.push([i+1,'"'+x.n+'"',x.mp,x.w,x.d,x.l,x.gf,x.ga,x.gd,x.pts].join(","))});
+  out.push("","Home,Home goals,Away goals,Away");
+  results.forEach(function(r){out.push(['"'+r.h+'"',r.hs,r.as,'"'+r.a+'"'].join(","))});
+  return out.join("\n");
+}
+var DL=null;
+try{claude.use("downloads").then(function(d){DL=d;if(d){$("csv").hidden=false;$("bak").hidden=false}}).catch(function(){})}catch(e){}
+function dl(name,data){if(!DL)return;DL.save({filename:name,data:data}).then(function(){toast("Saved "+name)},function(e){if(!e||e.code!=="declined")toast("Download not available here")})}
+$("csv").onclick=function(){dl("league-of-legends-table.csv",csvText())};
+$("bak").onclick=function(){dl("league-of-legends-backup.json",JSON.stringify(results))};
+$("rst").onclick=function(){$("file").click()};
+$("file").onchange=function(){
+  var f=this.files[0];if(!f)return;var rd=new FileReader();
+  rd.onload=function(){try{var a=JSON.parse(rd.result);
+    if(!Array.isArray(a)||!a.every(function(r){return info[r.h]&&info[r.a]&&Number.isInteger(r.hs)&&Number.isInteger(r.as)}))throw 1;
+    results=a;save();render();toast("Backup restored")}catch(e){toast("That file is not a valid backup")}};
+  rd.readAsText(f);this.value="";
+};
+</script>
+</body>
+</html>
